@@ -1,0 +1,260 @@
+{
+    "rules": {
+        ".read": "auth.uid === 'XXXXXXXXXXXXXXXXXXXXXXXXXXXX'",
+        ".write": "auth.uid === 'XXXXXXXXXXXXXXXXXXXXXXXXXXXX'",
+        "accounts": {
+            "$uid": {
+                "readable": {
+                    ".read": "$uid === auth.uid",
+                    ".write": false
+                },
+                "editable": {
+                    ".read": "$uid === auth.uid && auth.token.email_verified == true",
+                    ".write": "$uid === auth.uid && auth.token.email_verified == true"
+                },
+                "public": {
+                    ".read": true
+                },
+                "verified": {
+                    ".read": true
+                }
+            }
+        },
+        "online": {
+            "$uid": {
+                ".write": "$uid === auth.uid && auth.token.email_verified == true",
+                ".validate": "newData.val() === true"
+            }
+        },
+        "refresh": {
+            "$uid": {
+                ".write": "$uid === auth.uid && auth.token.email_verified == true",
+                ".validate": "newData.val() === true"
+            }
+        },
+        "requests": {
+            "createUserName": {
+                "$uid": {
+                    ".write": "$uid === auth.uid && auth.token.email_verified == true && !data.exists()",
+                    ".validate": "!data.parent().parent().parent().child('accounts').child($uid).child('readable').child('username').exists()"
+                }
+            },
+            "editDisplayName": {
+                "$uid": {
+                    ".write": "$uid === auth.uid && auth.token.email_verified == true && !data.exists()"
+                }
+            },
+            "editFullName": {
+                "$uid": {
+                    ".write": "$uid === auth.uid && auth.token.email_verified == true && !data.exists()"
+                }
+            },
+            "editPhoneNumber": {
+                "$uid": {
+                    ".write": "$uid === auth.uid && auth.token.email_verified == true && !data.exists()"
+                }
+            },
+            "editBlurb": {
+                "$uid": {
+                    ".write": "$uid === auth.uid && auth.token.email_verified == true && !data.exists()"
+                }
+            },
+            "editCountry": {
+                "$uid": {
+                    ".write": "$uid === auth.uid && auth.token.email_verified == true && !data.exists()"
+                }
+            },
+            "editAddress": {
+                "$uid": {
+                    ".write": "$uid === auth.uid && auth.token.email_verified == true && !data.exists()"
+                }
+            },
+            "editCity": {
+                "$uid": {
+                    ".write": "$uid === auth.uid && auth.token.email_verified == true && !data.exists()"
+                }
+            },
+            "rechargePrepaidCard": {
+                "$uid": {
+                    ".write": "($uid === auth.uid) && (auth.token.email_verified == true) && (!data.exists()) && ( (!data.parent().parent().parent().child('accounts').child($uid).child('readable').child('timestamp').exists())||(data.parent().parent().parent().child('accounts').child($uid).child('readable').child('timestamp').val() < (now - 5000))) && ( (!data.parent().parent().parent().child('accounts').child($uid).child('readable').child('busy').exists())||(data.parent().parent().parent().child('accounts').child($uid).child('readable').child('busy').val() == false))",
+                    ".validate": "!data.parent().exists() && !data.parent().parent().child('swapUSDT').child($uid).exists() && !data.parent().parent().child('generatePrepaidCard').child($uid).exists() && !data.parent().parent().child('rechargePrepaidCard').child($uid).exists() && !data.parent().parent().child('transferUSDT').child($uid).exists() && !data.parent().parent().child('transferUSDT').child($uid).exists() && !data.parent().parent().child('withdrawTronUSDT').child($uid).exists()"
+                }
+            },
+            "transferUSDT": {
+                "$uid": {
+                    ".write": "($uid === auth.uid) && (auth.token.email_verified == true) && (!data.exists()) && (!data.parent().parent().parent().child('accounts').child($uid).child('readable').child('walletActions').exists()) && ( (!data.parent().parent().parent().child('accounts').child($uid).child('readable').child('timestamp').exists())||(data.parent().parent().parent().child('accounts').child($uid).child('readable').child('timestamp').val() < (now - 5000))) && ( (!data.parent().parent().parent().child('accounts').child($uid).child('readable').child('busy').exists())||(data.parent().parent().parent().child('accounts').child($uid).child('readable').child('busy').val() == false))",
+                    ".validate": "!data.parent().exists() && !data.parent().parent().child('swapUSDT').child($uid).exists() && !data.parent().parent().child('generatePrepaidCard').child($uid).exists() && !data.parent().parent().child('rechargePrepaidCard').child($uid).exists() && !data.parent().parent().child('transferUSDT').child($uid).exists() && !data.parent().parent().child('transferUSDT').child($uid).exists() && !data.parent().parent().child('withdrawTronUSDT').child($uid).exists()"
+                }
+            },
+            "withdrawTronUSDT": {
+                "$uid": {
+                    ".write": "($uid === auth.uid) && (auth.token.email_verified == true) && (!data.exists()) && (!data.parent().parent().parent().child('accounts').child($uid).child('readable').child('walletActions').exists()) && ( (!data.parent().parent().parent().child('accounts').child($uid).child('readable').child('timestamp').exists())||(data.parent().parent().parent().child('accounts').child($uid).child('readable').child('timestamp').val() < (now - 5000))) && ( (!data.parent().parent().parent().child('accounts').child($uid).child('readable').child('busy').exists())||(data.parent().parent().parent().child('accounts').child($uid).child('readable').child('busy').val() == false))",
+                    ".validate": "!data.parent().exists() && !data.parent().parent().child('swapUSDT').child($uid).exists() && !data.parent().parent().child('generatePrepaidCard').child($uid).exists() && !data.parent().parent().child('rechargePrepaidCard').child($uid).exists() && !data.parent().parent().child('transferUSDT').child($uid).exists() && !data.parent().parent().child('transferUSDT').child($uid).exists() && !data.parent().parent().child('withdrawTronUSDT').child($uid).exists()"
+                }
+            },
+            "withdrawBinanceUSDT": {
+                "$uid": {
+                    ".write": "($uid === auth.uid) && (auth.token.email_verified == true) && (!data.exists()) && (!data.parent().parent().parent().child('accounts').child($uid).child('readable').child('walletActions').exists()) && ( (!data.parent().parent().parent().child('accounts').child($uid).child('readable').child('timestamp').exists())||(data.parent().parent().parent().child('accounts').child($uid).child('readable').child('timestamp').val() < (now - 5000))) && ( (!data.parent().parent().parent().child('accounts').child($uid).child('readable').child('busy').exists())||(data.parent().parent().parent().child('accounts').child($uid).child('readable').child('busy').val() == false))",
+                    ".validate": "!data.parent().exists() && !data.parent().parent().child('swapUSDT').child($uid).exists() && !data.parent().parent().child('generatePrepaidCard').child($uid).exists() && !data.parent().parent().child('rechargePrepaidCard').child($uid).exists() && !data.parent().parent().child('transferUSDT').child($uid).exists() && !data.parent().parent().child('transferUSDT').child($uid).exists() && !data.parent().parent().child('withdrawTronUSDT').child($uid).exists()"
+                }
+            },
+            "withdrawEthereumUSDT": {
+                "$uid": {
+                    ".write": "($uid === auth.uid) && (auth.token.email_verified == true) && (!data.exists()) && (!data.parent().parent().parent().child('accounts').child($uid).child('readable').child('walletActions').exists()) && ( (!data.parent().parent().parent().child('accounts').child($uid).child('readable').child('timestamp').exists())||(data.parent().parent().parent().child('accounts').child($uid).child('readable').child('timestamp').val() < (now - 5000))) && ( (!data.parent().parent().parent().child('accounts').child($uid).child('readable').child('busy').exists())||(data.parent().parent().parent().child('accounts').child($uid).child('readable').child('busy').val() == false))",
+                    ".validate": "!data.parent().exists() && !data.parent().parent().child('swapUSDT').child($uid).exists() && !data.parent().parent().child('generatePrepaidCard').child($uid).exists() && !data.parent().parent().child('rechargePrepaidCard').child($uid).exists() && !data.parent().parent().child('transferUSDT').child($uid).exists() && !data.parent().parent().child('transferUSDT').child($uid).exists() && !data.parent().parent().child('withdrawTronUSDT').child($uid).exists()"
+                }
+            },
+            "swapUSDT": {
+                "$uid": {
+                    ".write": "($uid === auth.uid) && (auth.token.email_verified == true) && (!data.exists()) && (!data.parent().parent().parent().child('accounts').child($uid).child('readable').child('walletActions').exists()) && ( (!data.parent().parent().parent().child('accounts').child($uid).child('readable').child('timestamp').exists())||(data.parent().parent().parent().child('accounts').child($uid).child('readable').child('timestamp').val() < (now - 5000))) && ( (!data.parent().parent().parent().child('accounts').child($uid).child('readable').child('busy').exists())||(data.parent().parent().parent().child('accounts').child($uid).child('readable').child('busy').val() == false))",
+                    ".validate": "!data.parent().exists() && !data.parent().parent().child('swapUSDT').child($uid).exists() && !data.parent().parent().child('generatePrepaidCard').child($uid).exists() && !data.parent().parent().child('rechargePrepaidCard').child($uid).exists() && !data.parent().parent().child('transferUSDT').child($uid).exists() && !data.parent().parent().child('transferUSDT').child($uid).exists() && !data.parent().parent().child('withdrawTronUSDT').child($uid).exists()"
+                }
+            },
+            "startOver": {
+                "$uid": {
+                    ".write": "($uid === auth.uid) && (auth.token.email_verified == true) && (!data.exists()) && (!data.parent().parent().parent().child('accounts').child($uid).child('readable').child('walletActions').exists()) && ( (!data.parent().parent().parent().child('accounts').child($uid).child('readable').child('timestamp').exists())||(data.parent().parent().parent().child('accounts').child($uid).child('readable').child('timestamp').val() < (now - 5000))) && ( (!data.parent().parent().parent().child('accounts').child($uid).child('readable').child('busy').exists())||(data.parent().parent().parent().child('accounts').child($uid).child('readable').child('busy').val() == false))",
+                    ".validate": "!data.parent().exists() && !data.parent().parent().child('swapUSDT').child($uid).exists() && !data.parent().parent().child('generatePrepaidCard').child($uid).exists() && !data.parent().parent().child('rechargePrepaidCard').child($uid).exists() && !data.parent().parent().child('transferUSDT').child($uid).exists() && !data.parent().parent().child('transferUSDT').child($uid).exists() && !data.parent().parent().child('withdrawTronUSDT').child($uid).exists()"
+                }
+            },
+            "generatePrepaidCard": {
+                "$uid": {
+                    ".write": "($uid === auth.uid) && (auth.token.email_verified == true) && (!data.exists()) && (!data.parent().parent().parent().child('accounts').child($uid).child('readable').child('walletActions').exists()) && ( (!data.parent().parent().parent().child('accounts').child($uid).child('readable').child('timestamp').exists())||(data.parent().parent().parent().child('accounts').child($uid).child('readable').child('timestamp').val() < (now - 5000))) && ( (!data.parent().parent().parent().child('accounts').child($uid).child('readable').child('busy').exists())||(data.parent().parent().parent().child('accounts').child($uid).child('readable').child('busy').val() == false))",
+                    ".validate": "!data.parent().exists() && !data.parent().parent().child('swapUSDT').child($uid).exists() && !data.parent().parent().child('generatePrepaidCard').child($uid).exists() && !data.parent().parent().child('rechargePrepaidCard').child($uid).exists() && !data.parent().parent().child('transferUSDT').child($uid).exists() && !data.parent().parent().child('transferUSDT').child($uid).exists() && !data.parent().parent().child('withdrawTronUSDT').child($uid).exists()"
+                }
+            },
+            "refresh": {
+                "$uid": {
+                    ".write": "($uid === auth.uid) && (auth.token.email_verified == true) && (!data.exists()) && (!data.parent().parent().parent().child('accounts').child($uid).child('readable').child('walletActions').exists())"
+                }
+            },
+            "requestMerchantApiKey": {
+                "$uid": {
+                    ".write": "($uid === auth.uid) && (auth.token.email_verified == true) && (!data.exists()) && (!data.parent().parent().parent().child('accounts').child($uid).child('readable').child('walletActions').exists()) && (!data.parent().parent().parent().child('accounts').child($uid).child('readable').child('merchantApiKey').exists())"
+                }
+            },
+            "revokeMerchantApiKey": {
+                "$uid": {
+                    ".write": "($uid === auth.uid) && (auth.token.email_verified == true) && (!data.exists()) && (!data.parent().parent().parent().child('accounts').child($uid).child('readable').child('walletActions').exists()) && (!data.parent().parent().parent().child('accounts').child($uid).child('readable').child('merchantApiKey').exists())"
+                }
+            },
+            "requestPaymentCard": {
+                "$uid": {
+                    ".write": "($uid === auth.uid) && (auth.token.email_verified == true) && (!data.exists()) && (!data.parent().parent().parent().child('accounts').child($uid).child('readable').child('walletActions').exists()) && (!data.parent().parent().parent().child('accounts').child($uid).child('readable').child('merchantApiKey').exists())"
+                }
+            },
+            "revokePaymentCard": {
+                "$uid": {
+                    ".write": "($uid === auth.uid) && (auth.token.email_verified == true) && (!data.exists()) && (!data.parent().parent().parent().child('accounts').child($uid).child('readable').child('walletActions').exists()) && (!data.parent().parent().parent().child('accounts').child($uid).child('readable').child('merchantApiKey').exists())"
+                }
+            },
+            "changePinCodePaymentCard": {
+                "$uid": {
+                    ".write": "($uid === auth.uid) && (auth.token.email_verified == true) && (!data.exists()) && (!data.parent().parent().parent().child('accounts').child($uid).child('readable').child('walletActions').exists()) && (!data.parent().parent().parent().child('accounts').child($uid).child('readable').child('merchantApiKey').exists())"
+                }
+            },
+            "topupPaymentCardWallet": {
+                "$uid": {
+                    ".write": "($uid === auth.uid) && (auth.token.email_verified == true) && (!data.exists()) && (!data.parent().parent().parent().child('accounts').child($uid).child('readable').child('walletActions').exists()) && (!data.parent().parent().parent().child('accounts').child($uid).child('readable').child('merchantApiKey').exists())"
+                }
+            },
+            "topupPaymentCardPrepaidCard": {
+                "$uid": {
+                    ".write": "($uid === auth.uid) && (auth.token.email_verified == true) && (!data.exists()) && (!data.parent().parent().parent().child('accounts').child($uid).child('readable').child('walletActions').exists()) && (!data.parent().parent().parent().child('accounts').child($uid).child('readable').child('merchantApiKey').exists())"
+                }
+            },
+            "redeemPaymentCard": {
+                "$uid": {
+                    ".write": "($uid === auth.uid) && (auth.token.email_verified == true) && (!data.exists()) && (!data.parent().parent().parent().child('accounts').child($uid).child('readable').child('walletActions').exists()) && (!data.parent().parent().parent().child('accounts').child($uid).child('readable').child('merchantApiKey').exists())"
+                }
+            },
+            "transferToDepositCard": {
+                "$uid": {
+                    ".write": "($uid === auth.uid) && (auth.token.email_verified == true) && (!data.exists()) && (!data.parent().parent().parent().child('accounts').child($uid).child('readable').child('walletActions').exists()) && ( (!data.parent().parent().parent().child('accounts').child($uid).child('readable').child('timestamp').exists())||(data.parent().parent().parent().child('accounts').child($uid).child('readable').child('timestamp').val() < (now - 5000))) && ( (!data.parent().parent().parent().child('accounts').child($uid).child('readable').child('busy').exists())||(data.parent().parent().parent().child('accounts').child($uid).child('readable').child('busy').val() == false))",
+                    ".validate": "!data.parent().exists() && !data.parent().parent().child('swapUSDT').child($uid).exists() && !data.parent().parent().child('generatePrepaidCard').child($uid).exists() && !data.parent().parent().child('rechargePrepaidCard').child($uid).exists() && !data.parent().parent().child('transferUSDT').child($uid).exists() && !data.parent().parent().child('transferUSDT').child($uid).exists() && !data.parent().parent().child('withdrawTronUSDT').child($uid).exists()"
+                }
+            }
+        },
+        "serialNumberPrepaidCards": {
+            "$serialNumberRoot": {
+                ".read": "($serialNumberRoot !== 'block')"
+            }
+        },
+        "usernames": {
+            "$username": {
+                ".read": "($username !== 'block')"
+            }
+        },
+        "admin": {
+            "swapUSDTRequest": {
+                ".read": "auth.uid === 'XXXXXXXXXXXXXXXXXXXXXXXXXXXX' || auth.uid === 'XXXXXXXXXXXXXXXXXXXXXXXXXXXX'"
+            }
+        },
+        "adminRequests": {
+            "updateSwapProfile": {
+                "$uid": {
+                    ".write": "$uid === auth.uid && (auth.uid === 'XXXXXXXXXXXXXXXXXXXXXXXXXXXX' || auth.uid === 'XXXXXXXXXXXXXXXXXXXXXXXXXXXX')"
+                }
+            },
+            "makeSwapPending": {
+                "$uid": {
+                    ".write": "$uid === auth.uid && (auth.uid === 'XXXXXXXXXXXXXXXXXXXXXXXXXXXX' || auth.uid === 'XXXXXXXXXXXXXXXXXXXXXXXXXXXX')"
+                }
+            },
+            "makeSwapProcessing": {
+                "$uid": {
+                    ".write": "$uid === auth.uid && (auth.uid === 'XXXXXXXXXXXXXXXXXXXXXXXXXXXX' || auth.uid === 'XXXXXXXXXXXXXXXXXXXXXXXXXXXX')"
+                }
+            },
+            "makeSwapRejected": {
+                "$uid": {
+                    ".write": "$uid === auth.uid && (auth.uid === 'XXXXXXXXXXXXXXXXXXXXXXXXXXXX' || auth.uid === 'XXXXXXXXXXXXXXXXXXXXXXXXXXXX')"
+                }
+            },
+            "makeSwapSent": {
+                "$uid": {
+                    ".write": "$uid === auth.uid && (auth.uid === 'XXXXXXXXXXXXXXXXXXXXXXXXXXXX' || auth.uid === 'XXXXXXXXXXXXXXXXXXXXXXXXXXXX')"
+                }
+            }
+        },
+        "publicSettings": {
+            ".read": true
+        },
+        "historic": {
+            "serialNumberPrepaidCards": {
+                "$serialNumberRoot": {
+                    ".read": "($serialNumberRoot !== 'block')"
+                }
+            },
+            "prepaidCards": {
+                "$prepaidCardRoot": {
+                    ".read": "($prepaidCardRoot !== 'block')"
+                }
+            },
+            "transactions": {
+                "$uid": {
+                    ".read": "$uid === auth.uid && auth.token.email_verified == true"
+                }
+            }
+        },
+        "trcWalletUsers": {
+            "$trcWallet": {
+                ".read": "($trcWallet !== 'block')"
+            }
+        },
+        "bscWalletUsers": {
+            "$bscWallet": {
+                ".read": "($bscWallet !== 'block')"
+            }
+        },
+        "ethWalletUsers": {
+            "$ethWallet": {
+                ".read": "($ethWallet !== 'block')"
+            }
+        },
+        "uidusername": {
+            "$uid": {
+                ".read": "($uid !== 'block')"
+            }
+        }
+    }
+}
